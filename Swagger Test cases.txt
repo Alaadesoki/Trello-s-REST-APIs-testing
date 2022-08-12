@@ -1,0 +1,69 @@
+API: GET /api/v1/Authors
+
+ Test Case 1: response should be 200 OK
+ Expected Result: 200 OK
+ Actual Result: 200 OK
+ Status: Pass
+
+ Test Case 2: response should contain, id, idBook, firstName, lastName.
+ Expected Result: 200 OK
+ Actual Result: 200 OK
+ Status: Pass
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+API: POST /api/v1/Authors
+
+ Test Case 1: Register with valid data and response should be 201 created 
+ Expected Result: 201 created
+ Actual Result: 200 OK
+ Status: Fail
+
+ Test Case 2: Register without firstName 
+ Expected Result: 400 Bad request
+ Actual Result: 200 ok
+ Status: Fail
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+API: GET /api/v1/Authors/authors/books/{idBook}
+
+ Test Case 1: Search for IdBook 1 and response return relative data 
+ Expected Result: 200 OK
+ Actual Result: 200 OK
+ Status: Pass
+
+ Test Case 2: Search for IdBook 700 and response should not return data 
+ Expected Result: 404 Not found 
+ Actual Result: 200 OK
+ Status: Fail
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+
+​API: GET /api​/v1​/Authors​/{id}
+
+ Test Case 1: Search for Author id 5 and response return relative data 
+ Expected Result: 200 OK
+ Actual Result: 200 OK
+ Status: Pass
+
+ Test Case 2: Search for Author id 650 and response should not return data 
+ Expected Result: 404 Not found  
+ Actual Result: 404 Not found 
+ Status: Pass
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+
+​API: PUT /api/v1/Authors/{id}
+
+ Test Case 1: Update an exicting author id 5 (firtsName)
+ Expected Result: 200 OK
+ Actual Result: 200 OK
+ Status: Pass
+
+ Test Case 2: Update an exicting author id 60 (lastName)
+ Expected Result: 200 OK  
+ Actual Result: 200 OK 
+ Status: Pass
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+​API: DELETE /api/v1/Authors/{id}
+
+ Test Case 1: Delet author id 5 and response shoud be 200 ok
+ Expected Result: 200 OK
+ Actual Result: 200 OK
+ Status: Pass
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
