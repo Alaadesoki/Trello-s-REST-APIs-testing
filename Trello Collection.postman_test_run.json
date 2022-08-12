@@ -1,0 +1,110 @@
+{
+	"id": "b54a6125-280d-4d13-a380-add9783c5cc8",
+	"name": "Trello Collection",
+	"timestamp": "2022-08-12T21:29:14.091Z",
+	"collection_id": "22598041-f8d30cfe-70ea-4453-82e2-51b14a4e18ab",
+	"folder_id": 0,
+	"environment_id": "22598041-1f9c8c09-7cac-4d86-9cd4-b6f4fd92fa0d",
+	"totalPass": 7,
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "b19e0534-92eb-49cc-8971-c84f44f21dde",
+			"name": "Create a new board.",
+			"url": "https://api.trello.com/1/boards?key=5e839723edad52ba3f31f5e0fb5138d8&token=026da3d0feb4b278fc26c855b9d8b18d0a169730aacd6843702ebb8457bb36c5&name=TrelloCollection",
+			"time": 463,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"closed": true,
+				"The PermissionLevel Should Be Private": true,
+				"Can be public true": true,
+				"Can invite true": true,
+				"Status code is 200": true
+			},
+			"testPassFailCounts": {
+				"closed": {
+					"pass": 1,
+					"fail": 0
+				},
+				"The PermissionLevel Should Be Private": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Can be public true": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Can invite true": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				463
+			],
+			"allTests": [
+				{
+					"closed": true,
+					"The PermissionLevel Should Be Private": true,
+					"Can be public true": true,
+					"Can invite true": true,
+					"Status code is 200": true
+				}
+			]
+		},
+		{
+			"id": "c470769d-ad52-4ceb-918a-ad00152da1cd",
+			"name": "Number of boards",
+			"url": "https://api.trello.com/1/members/me?boards=open&key=5e839723edad52ba3f31f5e0fb5138d8&token=026da3d0feb4b278fc26c855b9d8b18d0a169730aacd6843702ebb8457bb36c5",
+			"time": 466,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Number of boards above 1": true,
+				"Status code is 200": true
+			},
+			"testPassFailCounts": {
+				"Number of boards above 1": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				466
+			],
+			"allTests": [
+				{
+					"Number of boards above 1": true,
+					"Status code is 200": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 929,
+	"collection": {
+		"requests": [
+			{
+				"id": "b19e0534-92eb-49cc-8971-c84f44f21dde",
+				"method": "POST"
+			},
+			{
+				"id": "c470769d-ad52-4ceb-918a-ad00152da1cd",
+				"method": "GET"
+			}
+		]
+	}
+}
