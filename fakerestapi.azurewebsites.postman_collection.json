@@ -1,0 +1,491 @@
+{
+	"info": {
+		"_postman_id": "2eeefd56-bba5-4509-a7cd-8709ea3e21e7",
+		"name": "fakerestapi.azurewebsites",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22598041"
+	},
+	"item": [
+		{
+			"name": "Authors",
+			"item": [
+				{
+					"name": "Authors",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{MainURL}}/api/v1/Authors",
+							"host": [
+								"{{MainURL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"Authors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Authors 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"response should contain, id, idBook, firstName, lastName.\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"id\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{MainURL}}/api/v1/Authors",
+							"host": [
+								"{{MainURL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"Authors"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Register",
+			"item": [
+				{
+					"name": "Valid data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 608,\r\n  \"idBook\": 608,\r\n  \"firstName\": \"alaa\",\r\n  \"lastName\": \"desoki\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{MainURL}}/api/v1/Authors",
+							"host": [
+								"{{MainURL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"Authors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 608,\r\n  \"idBook\": 608,\r\n  \"firstName\": \"\",\r\n  \"lastName\": \"desoki\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{MainURL}}/api/v1/Authors",
+							"host": [
+								"{{MainURL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"Authors"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Books",
+			"item": [
+				{
+					"name": "Valid idBook",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"search for idBook 1\", function () {\r",
+									"    var JsonData = pm.response.json()[0];\r",
+									"    pm.expect(JsonData.idBook).equal(1);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n  {\r\n    \"id\": 1,\r\n    \"idBook\": 1,\r\n    \"firstName\": \"First Name 1\",\r\n    \"lastName\": \"Last Name 1\"\r\n  },\r\n  {\r\n    \"id\": 2,\r\n    \"idBook\": 1,\r\n    \"firstName\": \"First Name 2\",\r\n    \"lastName\": \"Last Name 2\"\r\n  },\r\n  {\r\n    \"id\": 3,\r\n    \"idBook\": 1,\r\n    \"firstName\": \"First Name 3\",\r\n    \"lastName\": \"Last Name 3\"\r\n  }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{MainURL}}/api/v1/Authors/authors/books/1",
+							"host": [
+								"{{MainURL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"Authors",
+								"authors",
+								"books",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid idBook",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"search for idBook 700\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{MainURL}}/api/v1/Authors/api/v1/Authors/authors/books/{700}",
+							"host": [
+								"{{MainURL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"Authors",
+								"api",
+								"v1",
+								"Authors",
+								"authors",
+								"books",
+								"{700}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Search for Authors Id",
+			"item": [
+				{
+					"name": "Valid Author id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Search for Author id 5\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 5,\r\n  \"idBook\": 2,\r\n  \"firstName\": \"First Name 5\",\r\n  \"lastName\": \"Last Name 5\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{MainURL}}/api/v1/Authors/5",
+							"host": [
+								"{{MainURL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"Authors",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid Author id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Search for Author id 650\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"type\": \"https://tools.ietf.org/html/rfc7231#section-6.5.4\",\r\n  \"title\": \"Not Found\",\r\n  \"status\": 404,\r\n  \"traceId\": \"00-37c19bd5ce1cec46b2a5434ea6384104-61c30b7fc7588548-00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{MainURL}}/api/v1/Authors/650",
+							"host": [
+								"{{MainURL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"Authors",
+								"650"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Update an exicting author id",
+			"item": [
+				{
+					"name": "Update author id (firstName)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Update author id 5\", function () {\r",
+									"    pm.response.to.have.body.toString(\"Hany\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 0,\r\n  \"idBook\": 0,\r\n  \"firstName\": \"Hany\",\r\n  \"lastName\": \"string\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{MainURL}}/api/v1/Authors/5",
+							"host": [
+								"{{MainURL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"Authors",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update author id (lastName)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Update author id 60\", function () {\r",
+									"    pm.response.to.have.body.toString(\"Desoki\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 0,\r\n  \"idBook\": 0,\r\n  \"firstName\": \"string\",\r\n  \"lastName\": \"Desoki\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{MainURL}}/api/v1/Authors/60",
+							"host": [
+								"{{MainURL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"Authors",
+								"60"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Delete an author id",
+			"item": [
+				{
+					"name": "Delet author id 5",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Delet author id 5\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{MainURL}}/api/v1/Authors/5",
+							"host": [
+								"{{MainURL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"Authors",
+								"5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
