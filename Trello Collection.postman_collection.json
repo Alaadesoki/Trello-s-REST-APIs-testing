@@ -1,0 +1,453 @@
+{
+	"info": {
+		"_postman_id": "f8d30cfe-70ea-4453-82e2-51b14a4e18ab",
+		"name": "Trello Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22598041"
+	},
+	"item": [
+		{
+			"name": "Create a new board.",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"closed\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.closed).to.eql(false);\r",
+							"});\r",
+							"pm.test(\"The PermissionLevel Should Be Private\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"permissionLevel\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Can be public true\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.prefs.canBePublic).to.eql(true);\r",
+							"});\r",
+							"pm.test(\"Can invite true\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.prefs.canInvite).to.eql(true);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\": \"Alaa\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.trello.com/1/boards?key=5e839723edad52ba3f31f5e0fb5138d8&token=026da3d0feb4b278fc26c855b9d8b18d0a169730aacd6843702ebb8457bb36c5&name=TrelloCollection",
+					"protocol": "https",
+					"host": [
+						"api",
+						"trello",
+						"com"
+					],
+					"path": [
+						"1",
+						"boards"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "5e839723edad52ba3f31f5e0fb5138d8"
+						},
+						{
+							"key": "token",
+							"value": "026da3d0feb4b278fc26c855b9d8b18d0a169730aacd6843702ebb8457bb36c5"
+						},
+						{
+							"key": "name",
+							"value": "TrelloCollection"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Number of boards",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"var boardsLength = jsonData.boards.length;\r",
+							"\r",
+							"pm.test(\"Number of boards above 1\", function () {\r",
+							"    pm.expect(boardsLength).to.be.above(1);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.environment.set(\"FirstBoardID\", jsonData.boards[0].id);\r",
+							"pm.environment.set(\"LastBoardID\", jsonData.boards[boardsLength-1].id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "026da3d0feb4b278fc26c855b9d8b18d0a169730aacd6843702ebb8457bb36c5",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.trello.com/1/members/me?boards=open&key=5e839723edad52ba3f31f5e0fb5138d8&token=026da3d0feb4b278fc26c855b9d8b18d0a169730aacd6843702ebb8457bb36c5",
+					"protocol": "https",
+					"host": [
+						"api",
+						"trello",
+						"com"
+					],
+					"path": [
+						"1",
+						"members",
+						"me"
+					],
+					"query": [
+						{
+							"key": "boards",
+							"value": "open"
+						},
+						{
+							"key": "key",
+							"value": "5e839723edad52ba3f31f5e0fb5138d8"
+						},
+						{
+							"key": "token",
+							"value": "026da3d0feb4b278fc26c855b9d8b18d0a169730aacd6843702ebb8457bb36c5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a new list",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Check id key\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property(\"id\");\r",
+							"});\r",
+							"pm.test(\"Check name key\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property(\"name\");\r",
+							"});\r",
+							"pm.test(\"Check idBoard key\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property(\"idBoard\");\r",
+							"});\r",
+							"pm.test(\"check closed value\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.closed).to.eql(false);\r",
+							"});\r",
+							"pm.test(\"check limits is an empty object\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.limits).to.be.empty;\r",
+							"\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.trello.com/1/lists?key=5e839723edad52ba3f31f5e0fb5138d8&token=026da3d0feb4b278fc26c855b9d8b18d0a169730aacd6843702ebb8457bb36c5&idBoard={{LastBoardID}}&name=TrelloCollection",
+					"protocol": "https",
+					"host": [
+						"api",
+						"trello",
+						"com"
+					],
+					"path": [
+						"1",
+						"lists"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "5e839723edad52ba3f31f5e0fb5138d8"
+						},
+						{
+							"key": "token",
+							"value": "026da3d0feb4b278fc26c855b9d8b18d0a169730aacd6843702ebb8457bb36c5"
+						},
+						{
+							"key": "idBoard",
+							"value": "{{LastBoardID}}"
+						},
+						{
+							"key": "name",
+							"value": "TrelloCollection"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get the Lists on a Board",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"var listLength = jsonData.length;\r",
+							"pm.test(\"Number of list is three\", function () {\r",
+							"    pm.expect(jsonData.length).to.eql(3);\r",
+							"});\r",
+							"pm.environment.set(\"FirstListID\", jsonData[0].id);\r",
+							"pm.environment.set(\"LastListID\", jsonData[listLength-1].id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.trello.com/1/boards/{{FirstBoardID}}/lists?key=5e839723edad52ba3f31f5e0fb5138d8&token=026da3d0feb4b278fc26c855b9d8b18d0a169730aacd6843702ebb8457bb36c5",
+					"protocol": "https",
+					"host": [
+						"api",
+						"trello",
+						"com"
+					],
+					"path": [
+						"1",
+						"boards",
+						"{{FirstBoardID}}",
+						"lists"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "5e839723edad52ba3f31f5e0fb5138d8"
+						},
+						{
+							"key": "token",
+							"value": "026da3d0feb4b278fc26c855b9d8b18d0a169730aacd6843702ebb8457bb36c5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Archive a list",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Check the value of closed\", function () {\r",
+							"    pm.expect(jsonData.closed).to.eql(true);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check Set-cookie header\", function () {\r",
+							"    var cookies_header = pm.response.headers.get(\"Set-Cookie\");\r",
+							"\r",
+							"    pm.expect(cookies_header).contains(\"isEnterpriseAdmin%3Dfalse\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.trello.com/1/lists/{{FirstBoardID}}/closed?key=5e839723edad52ba3f31f5e0fb5138d8&token=026da3d0feb4b278fc26c855b9d8b18d0a169730aacd6843702ebb8457bb36c5&value=true",
+					"protocol": "https",
+					"host": [
+						"api",
+						"trello",
+						"com"
+					],
+					"path": [
+						"1",
+						"lists",
+						"{{FirstBoardID}}",
+						"closed"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "5e839723edad52ba3f31f5e0fb5138d8"
+						},
+						{
+							"key": "token",
+							"value": "026da3d0feb4b278fc26c855b9d8b18d0a169730aacd6843702ebb8457bb36c5"
+						},
+						{
+							"key": "value",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delet a boards",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Deleted successfully\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData._value).to.contain(\"board is removed successfully\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.trello.com/1/boards/{{LastBoardID}}?key=5e839723edad52ba3f31f5e0fb5138d8&token=026da3d0feb4b278fc26c855b9d8b18d0a169730aacd6843702ebb8457bb36c5",
+					"protocol": "https",
+					"host": [
+						"api",
+						"trello",
+						"com"
+					],
+					"path": [
+						"1",
+						"boards",
+						"{{LastBoardID}}"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "5e839723edad52ba3f31f5e0fb5138d8"
+						},
+						{
+							"key": "token",
+							"value": "026da3d0feb4b278fc26c855b9d8b18d0a169730aacd6843702ebb8457bb36c5"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
